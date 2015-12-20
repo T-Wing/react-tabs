@@ -60,7 +60,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  Tabs: __webpack_require__(1),
 	  TabList: __webpack_require__(9),
 	  Tab: __webpack_require__(8),
-	  TabPanel: __webpack_require__(11)
+	  TabPanel: __webpack_require__(11),
+	  rewind: __webpack_require__(12)
 	};
 
 /***/ },
@@ -86,8 +87,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _jsStylesheet2 = _interopRequireDefault(_jsStylesheet);
 	
 	var _helpersUuid = __webpack_require__(6);
-	
-	var _helpersUuid2 = _interopRequireDefault(_helpersUuid);
 	
 	var _helpersChildrenPropType = __webpack_require__(7);
 	
@@ -294,8 +293,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // Don't bother removing ids, just keep them in case they are added again
 	    // This is more efficient, and keeps the uuid counter under control
 	    while (diff++ < 0) {
-	      tabIds.push((0, _helpersUuid2['default'])());
-	      panelIds.push((0, _helpersUuid2['default'])());
+	      tabIds.push((0, _helpersUuid.uuid)());
+	      panelIds.push((0, _helpersUuid.uuid)());
 	    }
 	
 	    // Map children to dynamically setup refs
@@ -540,8 +539,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 	
 	var count = 0;
-	module.exports = function uuid() {
-	  return 'react-tabs-' + count++;
+	module.exports = {
+	  uuid: function uuid() {
+	    return 'react-tabs-' + count++;
+	  },
+	  resetUuid: function resetUuid() {
+	    count = 0;
+	  }
 	};
 
 /***/ },
@@ -833,6 +837,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	    );
 	  }
 	});
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _uuid = __webpack_require__(6);
+	
+	module.exports = function rewind() {
+	  (0, _uuid.resetUuid)();
+	};
 
 /***/ }
 /******/ ])
